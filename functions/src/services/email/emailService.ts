@@ -2,9 +2,9 @@ import * as nodemailer from "nodemailer";
 import * as functions from "firebase-functions";
 import * as logger from "firebase-functions/logger";
 
-// Get SendGrid API key from Firebase config
+// FIXED: Use Firebase Config v2 syntax
 const config = functions.config();
-const SENDGRID_API_KEY = config.sendgrid?.api_key;
+const SENDGRID_API_KEY = config?.sendgrid?.api_key;
 
 // Don't initialize anything on import - do it lazily
 let transport: nodemailer.Transporter | null = null;
@@ -85,7 +85,8 @@ export function isEmailServiceAvailable(): boolean {
   }
   return isEmailEnabled && transport !== null;
 }
-// Email Templates
+
+// Email Templates (keep your existing templates unchanged)
 export const emailTemplates = {
   welcome: (userName: string) => `
     <!DOCTYPE html>
