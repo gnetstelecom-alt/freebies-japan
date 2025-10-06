@@ -1,0 +1,27 @@
+steps:
+  # Step 1: Install dependencies
+  - name: 'node:20'
+    entrypoint: 'npm'
+    args: ['install']
+    dir: 'functions'
+    
+  # Step 2: Build TypeScript to JavaScript
+  - name: 'node:20'
+    entrypoint: 'npm'
+    args: ['run', 'build']
+    dir: 'functions'
+    
+  # Step 3: Deploy a simple test function
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        gcloud functions deploy simpleTest \
+          --gen2 \
+          --region=asia-northeast1 \
+          --runtime=nodejs20 \
+          --source=functions/lib \
+          --trigger-http \
+          --allow-unauthenticated \
+          --entry-point=simpleTest

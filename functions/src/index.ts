@@ -6,6 +6,7 @@
 import { setGlobalOptions } from "firebase-functions/v2";
 import { logger } from "firebase-functions/v2";
 import { promoteToAdmin } from "./promote-to-admin.function";
+import { simpleTest } from "./simpleTest";  // ADD THIS LINE
 
 // Configure global settings for all functions
 setGlobalOptions({
@@ -17,7 +18,7 @@ setGlobalOptions({
 });
 
 // Export all callable functions
-export { promoteToAdmin };
+export { promoteToAdmin, simpleTest };  // ADD simpleTest HERE
 
 // Example HTTP function (uncomment if needed)
 /*
